@@ -1,3 +1,8 @@
+## Zenodo Record
+
+PAT concept paper and release context:
+DOI: 10.5281/zenodo.17046595
+Zenodo record: https://doi.org/10.5281/zenodo.17046595
 # PAT — Pan-African Language Infrastructure
 
 PAT is a patent-free, reproducible language infrastructure project designed to help African languages exist natively inside modern AI systems.
