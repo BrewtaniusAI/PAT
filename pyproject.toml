@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pat"
+version = "0.5.0"
+description = "Patent-free Pan-African language infrastructure"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{name = "Mark Anthony Brewer"}]
+license = {text = "Apache-2.0"}
+dependencies = []
+
+[project.scripts]
+pat = "pat_cli:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

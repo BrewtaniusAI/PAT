@@ -1,0 +1,10 @@
+pat_audit
+pat_builder
+pat_cli
+pat_core
+pat_pipeline
+pat_policy
+pat_release
+pat_release_pack
+pat_validation
+pat_version

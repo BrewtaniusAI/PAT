@@ -1,0 +1,43 @@
+{
+  "name": "PAT",
+  "version": "1.0.0",
+  "release_stage": "public-alpha",
+  "artifacts": [
+    "README.md",
+    "LICENSE.md",
+    "CITATION.cff",
+    "pyproject.toml",
+    "VERSION",
+    "schemas/pipeline_output.schema.json",
+    "release_manifest.json",
+    "docs/GITHUB_RELEASE_DRAFT.md",
+    "docs/ZENODO_RELEASE_NOTES.md",
+    "provenance.json",
+    "docs/PUBLICATION_CHECKLIST.md",
+    "docs/GITHUB_RELEASE_TEXT.md",
+    "docs/ZENODO_PUBLICATION_TEXT.md",
+    "docs/REPOSITORY_METADATA.md",
+    ".github/workflows/release.yml",
+    "provenance.signed.example.json",
+    "docs/SIGNED_PROVENANCE.md",
+    "docs/LANDING_PAGE.md",
+    "docs/INDEX.md",
+    "mkdocs.yml",
+    "docs/FIRST_PUBLIC_RELEASE_CHECKLIST.md"
+  ],
+  "commands": [
+    "pat run \"\u1eb8 k\u00e1\u00e0\u00e1r\u1ecd\u0300 Africa\" --profile yo",
+    "pat build-dataset input.json output.json",
+    "pat receipt output.json",
+    "pat proof output.json",
+    "pat release-check --repo-root .",
+    "pat validate-output output.json",
+    "pat build-dataset-batch input_dir output_dir",
+    "pat release-summary --repo-root ."
+  ],
+  "notes": [
+    "Public patent-free infrastructure release",
+    "Executable prior-art artifact",
+    "Proof bundle and receipt generation included"
+  ]
+}

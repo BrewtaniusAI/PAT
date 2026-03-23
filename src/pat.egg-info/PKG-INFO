@@ -1,0 +1,110 @@
+Metadata-Version: 2.4
+Name: pat
+Version: 0.5.0
+Summary: Patent-free Pan-African language infrastructure
+Author: Mark Anthony Brewer
+License: Apache-2.0
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE.md
+Dynamic: license-file
+
+# PAT — Pan-African Language Infrastructure
+
+PAT is a patent-free, reproducible language infrastructure project designed to help African languages exist natively inside modern AI systems.
+
+This repository is released as executable public knowledge. It is part of a broader patent-free science and open collaboration framework and is intended to function as:
+- public infrastructure
+- executable prior art
+- reproducible technical disclosure
+- a foundation for community stewardship
+
+## Why PAT exists
+
+African languages should not be an afterthought in AI.
+
+PAT begins with a simple principle: language infrastructure should be open, reproducible, ethically framed, and usable by the communities it affects.
+
+## What this release includes
+
+- governed execution pipeline
+- validation and policy enforcement
+- language profiles for Yorùbá, Kiswahili, and isiZulu
+- profile-aware tokenization path
+- dataset builder and batch dataset builder
+- receipts and proof bundle export
+- schema validation and release integrity checks
+- contribution files and language steward guidance
+- publication pack for GitHub and Zenodo release
+
+## Core execution model
+
+```text
+Input → Validation → Policy → Execution → Output → Receipt / Proof
+```
+
+No pipeline stage is intended to bypass validation or policy checks.
+
+## Quickstart
+
+```bash
+python -m pip install -e .
+pat version
+pat run "Ẹ káàárọ̀ Africa" --profile yo
+```
+
+### Build datasets
+
+```bash
+pat build-dataset input.json output.json
+pat build-dataset-batch input_dir output_dir
+```
+
+### Generate integrity artifacts
+
+```bash
+pat receipt output.json
+pat proof output.json
+pat validate-output output.json
+pat release-check --repo-root .
+```
+
+## Repository map
+
+- `src/` — runtime, validation, policy, audit, builder, and CLI code
+- `configs/language_profiles/` — seed language profiles
+- `datasets/` — sample corpora and annotation materials
+- `schemas/` — output and dataset schemas
+- `docs/` — governance, reproducibility, release, and publication materials
+- `.github/` — CI, templates, and release workflow
+
+## Public release files
+
+See:
+- `docs/GITHUB_RELEASE_TEXT.md`
+- `docs/ZENODO_PUBLICATION_TEXT.md`
+- `docs/PUBLICATION_CHECKLIST.md`
+- `docs/REPOSITORY_METADATA.md`
+
+## Ethical framing
+
+PAT should not be used for:
+- impersonation
+- political manipulation
+- deceptive synthetic communication
+- exploitative extraction of culturally sensitive material
+
+See `docs/ETHICAL_USE.md`.
+
+## Citation and archival path
+
+- `CITATION.cff`
+- `release_manifest.json`
+- `provenance.json`
+- receipt and proof bundle outputs
+
+## Status
+
+PAT v0.9.0 is a public-alpha release candidate.
+
+It is intentionally small, reproducible, and extensible.

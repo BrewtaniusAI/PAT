@@ -1,0 +1,48 @@
+{
+  "type": "object",
+  "required": [
+    "schema_version",
+    "input",
+    "status",
+    "tokens",
+    "phonemes",
+    "dialect",
+    "policy",
+    "profile_code"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "input": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "tokens": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "phonemes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "dialect": {
+      "type": "object"
+    },
+    "policy": {
+      "type": "object"
+    },
+    "profile_code": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

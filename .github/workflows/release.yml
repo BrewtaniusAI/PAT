@@ -1,0 +1,38 @@
+name: PAT Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install package
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e . pytest
+
+      - name: Run tests
+        run: pytest
+
+      - name: Build zip archive
+        run: |
+          mkdir -p dist
+          zip -r dist/PAT-${GITHUB_REF_NAME}.zip .             -x "*.git*" -x "dist/*" -x "__pycache__/*" -x ".pytest_cache/*"
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          body_path: docs/GITHUB_RELEASE_TEXT.md
+          files: |
+            dist/PAT-${GITHUB_REF_NAME}.zip

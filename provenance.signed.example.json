@@ -1,0 +1,12 @@
+{
+  "artifact": "PAT",
+  "version": "0.9.0",
+  "provenance_type": "signed_example_stub",
+  "signature_algorithm": "ed25519",
+  "public_key_id": "example-key-id",
+  "signature": "<signature-placeholder>",
+  "notes": [
+    "Example structure only.",
+    "Replace with real signing flow if desired."
+  ]
+}

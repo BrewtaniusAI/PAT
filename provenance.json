@@ -1,0 +1,12 @@
+{
+  "artifact": "PAT",
+  "version": "0.8.0",
+  "provenance_type": "unsigned_stub",
+  "created_by": "Mark Anthony Brewer",
+  "intent": "public patent-free infrastructure",
+  "timestamp_policy": "external archival timestamp recommended",
+  "notes": [
+    "This file is a stub for future signed provenance flows.",
+    "Pair with receipt and proof bundle for publication."
+  ]
+}

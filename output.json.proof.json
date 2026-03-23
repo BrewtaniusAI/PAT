@@ -1,0 +1,19 @@
+{
+  "kind": "pat_proof_bundle",
+  "receipt": {
+    "file": "output.json",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "timestamp": "2026-03-23T10:39:43.838264+00:00",
+    "schema_version": "0.1",
+    "source": "PAT pipeline"
+  },
+  "artifacts": [
+    {
+      "path": "output.json",
+      "role": "primary_artifact"
+    }
+  ],
+  "notes": [
+    "Bundle prepared for Proof Vault or DOI-linked archival flow."
+  ]
+}

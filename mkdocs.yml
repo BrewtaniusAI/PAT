@@ -1,0 +1,16 @@
+site_name: PAT
+site_description: Patent-free Pan-African language infrastructure
+theme:
+  name: material
+
+nav:
+  - Home: README.md
+  - Docs:
+      - Index: docs/INDEX.md
+      - Overview: docs/OVERVIEW.md
+      - Architecture: docs/ARCHITECTURE.md
+      - Governance: docs/GOVERNANCE.md
+      - Ethical Use: docs/ETHICAL_USE.md
+      - Reproducibility: docs/REPRODUCIBILITY.md
+      - Data: docs/DATASETS.md
+      - Changelog: docs/CHANGELOG.md
