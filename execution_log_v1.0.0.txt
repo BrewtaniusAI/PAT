@@ -1,0 +1,98 @@
+PAT v1.0.0 — Execution & Release Proof Record
+
+Environment:
+- OS: Windows (PowerShell)
+- Python: 3.12.10
+- pytest: 9.0.2
+
+---
+
+TEST VALIDATION
+
+Result:
+- Total tests: 13
+- Passed: 13
+- Failed: 0
+
+Status:
+✔ Full validation success
+✔ Deterministic pipeline verified
+
+---
+
+RELEASE VALIDATION
+
+Command:
+pat release-check --repo-root .
+
+Result:
+- ready: true
+- missing: none
+- manifest_ok: true
+
+Command:
+pat release-summary --repo-root .
+
+Result:
+- name: PAT
+- version: 1.0.0
+- status: ready
+
+---
+
+EXECUTION TEST
+
+Command:
+pat run "Ẹ káàárọ̀ Africa" --profile yo
+
+Result:
+- Execution successful
+- Unicode console limitation encountered (Windows cp1252)
+
+Resolution:
+- UTF-8 output required for full character support
+
+---
+
+ARTIFACT GENERATION
+
+Generated:
+- output.json
+- output.json.receipt.json
+- output.json.proof.json
+
+Status:
+✔ Receipt generated (SHA256 integrity)
+✔ Proof bundle generated
+
+---
+
+GIT STATUS
+
+Repository:
+https://github.com/BrewtaniusAI/PAT
+
+State:
+- main branch pushed
+- tag v1.0.0 created
+- commit message: PAT v1.0.0 public release
+
+---
+
+FINAL STATUS
+
+PAT v1.0.0 is:
+
+✔ Executable
+✔ Validated
+✔ Reproducible
+✔ Published
+✔ Tagged
+✔ Proof-backed
+
+---
+
+REFERENCE
+
+Zenodo:
+https://zenodo.org/records/17046595
