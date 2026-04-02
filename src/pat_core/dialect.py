@@ -20,8 +20,15 @@ def _is_word_boundary_safe(keyword: str) -> bool:
 
 
 def _keyword_matches(keyword: str, text: str) -> bool:
-    """Match a keyword in text, using word boundaries when safe."""
+    """Match a keyword in text, using word boundaries when safe.
+
+    Single/two-character keywords act as character-presence indicators
+    (e.g., Yorùbá ẹ, ọ, ṣ) and use substring matching so they detect
+    the character inside words like "orúkọ" or "káàárọ̀".
+    """
     kw = keyword.lower()
+    if len(kw) <= 2:
+        return kw in text
     if _is_word_boundary_safe(kw):
         return re.search(r'\b' + re.escape(kw) + r'\b', text) is not None
     # Fallback: match with surrounding whitespace/punctuation/boundaries
