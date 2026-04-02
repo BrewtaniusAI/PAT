@@ -131,7 +131,7 @@ class _ChatHandler(SimpleHTTPRequestHandler):
         engine = _get_engine()
         try:
             data = json.loads(body) if body else {}
-            code = data.get("code", "").strip()
+            code = (data.get("code") or "").strip()
             if not code:
                 engine.language_code = None
                 engine.language_name = None

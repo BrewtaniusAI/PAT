@@ -20,6 +20,7 @@ class ChatEngine:
     auto_detect: bool = True
     history: list[ChatMessage] = field(default_factory=list)
     model: str | None = None
+    max_history: int = 50
 
     def set_language(self, code: str, name: str) -> None:
         """Manually set the conversation language and disable auto-detect."""
@@ -37,10 +38,12 @@ class ChatEngine:
             self.language_name = result.name
 
     def _build_messages(self, user_text: str) -> list[ChatMessage]:
-        """Build the full message list including system prompt and history."""
+        """Build the full message list including system prompt and recent history."""
         system_prompt = build_system_prompt(self.language_code, self.language_name)
         messages = [ChatMessage(role="system", content=system_prompt)]
-        messages.extend(self.history)
+        # Sliding window: keep only the most recent messages
+        recent = self.history[-self.max_history:] if len(self.history) > self.max_history else self.history
+        messages.extend(recent)
         messages.append(ChatMessage(role="user", content=user_text))
         return messages
 

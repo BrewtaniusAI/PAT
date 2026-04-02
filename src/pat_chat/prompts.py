@@ -1,23 +1,32 @@
 """Language-aware system prompts for PAT chat."""
 from __future__ import annotations
 
+from functools import lru_cache
+
 from pat_core.language_profiles import list_profiles, load_profile
+
+
+@lru_cache(maxsize=1)
+def _language_list_str() -> tuple[int, str]:
+    """Cache the language list since profiles are static."""
+    all_codes = list_profiles()
+    names = []
+    for code in all_codes:
+        profile = load_profile(code)
+        if profile:
+            names.append(f"{profile['name']} ({code})")
+    return len(all_codes), ", ".join(names)
 
 
 def build_system_prompt(language_code: str | None, language_name: str | None) -> str:
     """Build a system prompt that instructs the LLM to respond in the given language."""
-    all_codes = list_profiles()
-    language_list = []
-    for code in all_codes:
-        profile = load_profile(code)
-        if profile:
-            language_list.append(f"{profile['name']} ({code})")
+    count, lang_list = _language_list_str()
 
     base = (
         "You are PAT — a Pan-African Language AI assistant. "
         "You help users communicate in African languages. "
         "You are knowledgeable about African languages, cultures, and linguistics.\n\n"
-        f"You support {len(all_codes)} African languages: {', '.join(language_list)}.\n\n"
+        f"You support {count} African languages: {lang_list}.\n\n"
     )
 
     if language_code and language_name:
