@@ -377,13 +377,11 @@ async function init() {
 }
 
 async function setLanguage(code) {
-  if (code) {
-    await fetch(`${API_BASE}/api/language`, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({code})
-    });
-  }
+  await fetch(`${API_BASE}/api/language`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({code: code || ''})
+  });
   currentLang = code || null;
 }
 
