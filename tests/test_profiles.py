@@ -20,7 +20,7 @@ ALL_EXPECTED_PROFILES = [
     # Nilo-Saharan
     "din", "nus",
     # Additional
-    "gaa", "ber", "tmh", "son", "swa", "tir", "sid", "wal", "gez",
+    "gaa", "ber", "tmh", "son", "swa", "tig", "sid", "wal", "gez",
 ]
 
 
