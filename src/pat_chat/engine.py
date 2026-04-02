@@ -6,6 +6,8 @@ from dataclasses import dataclass, field
 from pat_chat.backends import ChatBackend, ChatMessage, auto_select_backend
 from pat_chat.detect import detect_language
 from pat_chat.prompts import build_system_prompt
+from pat_policy.policy import enforce_policy
+from pat_validation.validator import validate_input
 
 
 @dataclass
@@ -44,9 +46,17 @@ class ChatEngine:
     def chat(self, user_text: str) -> str:
         """Send a message and get a response.
 
+        Enforces input validation and policy checks before processing.
         Auto-detects language on each message, builds context-aware prompts,
         and maintains conversation history.
+
+        Raises:
+            ValueError: If input fails validation (empty, too long).
+            PermissionError: If input violates policy (forbidden patterns).
         """
+        validate_input(user_text)
+        enforce_policy(user_text)
+
         self._detect_and_update(user_text)
         messages = self._build_messages(user_text)
         response = self.backend.generate(messages, model=self.model)

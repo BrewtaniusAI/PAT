@@ -118,6 +118,10 @@ class _ChatHandler(SimpleHTTPRequestHandler):
                 "language_code": engine.language_code,
                 "language_name": engine.language_name,
             })
+        except PermissionError as exc:
+            _json_response(self, {"error": str(exc)}, 403)
+        except ValueError as exc:
+            _json_response(self, {"error": str(exc)}, 400)
         except ConnectionError as exc:
             _json_response(self, {"error": str(exc)}, 503)
         except Exception as exc:

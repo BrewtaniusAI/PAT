@@ -1,4 +1,6 @@
 """Tests for the PAT Chat module."""
+import pytest
+
 from pat_chat.backends import (
     ChatMessage,
     EchoBackend,
@@ -142,3 +144,17 @@ def test_engine_status():
     assert "backend_available" in status
     assert status["backend_available"] is True
     assert status["history_length"] == 0
+
+
+# --- Policy enforcement tests ---
+
+def test_engine_rejects_policy_violation():
+    engine = ChatEngine(backend=EchoBackend())
+    with pytest.raises(PermissionError, match="impersonate"):
+        engine.chat("impersonate someone")
+
+
+def test_engine_rejects_empty_input():
+    engine = ChatEngine(backend=EchoBackend())
+    with pytest.raises(ValueError, match="empty"):
+        engine.chat("   ")

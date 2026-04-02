@@ -160,6 +160,10 @@ def run_chat_cli(
         try:
             response = engine.chat(user_input)
             print(f"\nPAT: {response}\n")
+        except PermissionError as exc:
+            print(f"\nPolicy violation: {exc}\n")
+        except ValueError as exc:
+            print(f"\nValidation error: {exc}\n")
         except ConnectionError as exc:
             print(f"\nConnection error: {exc}")
             print("Make sure your LLM backend is running.\n")
