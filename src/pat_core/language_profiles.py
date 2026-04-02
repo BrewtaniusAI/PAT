@@ -14,7 +14,7 @@ def load_profile(profile_code: str | None) -> dict | None:
     if "/" in profile_code or "\\" in profile_code or ".." in profile_code:
         raise ValueError(f"Invalid profile code: {profile_code}")
     path = (PROFILE_DIR / f"{profile_code}.json").resolve()
-    if not str(path).startswith(str(PROFILE_DIR.resolve())):
+    if not path.is_relative_to(PROFILE_DIR.resolve()):
         raise ValueError(f"Invalid profile code: {profile_code}")
     if not path.exists():
         raise ValueError(f"Unknown profile: {profile_code}")

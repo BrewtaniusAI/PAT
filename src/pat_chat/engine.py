@@ -65,9 +65,11 @@ class ChatEngine:
         messages = self._build_messages(user_text)
         response = self.backend.generate(messages, model=self.model)
 
-        # Update history
+        # Update history and trim to max_history to prevent unbounded growth
         self.history.append(ChatMessage(role="user", content=user_text))
         self.history.append(ChatMessage(role="assistant", content=response))
+        if len(self.history) > self.max_history:
+            self.history = self.history[-self.max_history:]
 
         return response
 

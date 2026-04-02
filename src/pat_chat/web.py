@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import threading
 from pathlib import Path
 from http.server import BaseHTTPRequestHandler
 from socketserver import ThreadingMixIn
@@ -21,8 +22,9 @@ from pat_core.language_profiles import list_profiles, load_profile
 
 TEMPLATE_DIR = Path(__file__).parent / "templates"
 
-# Global engine instance for the web server
+# Global engine instance and lock for thread-safe access
 _engine: ChatEngine | None = None
+_engine_lock = threading.Lock()
 
 
 def _get_engine() -> ChatEngine:
@@ -33,12 +35,11 @@ def _get_engine() -> ChatEngine:
 
 
 def _json_response(handler: "_ChatHandler", data: dict | list, status: int = 200) -> None:
-    """Send a JSON response."""
+    """Send a JSON response (same-origin only, no CORS wildcard)."""
     body = json.dumps(data, ensure_ascii=False).encode("utf-8")
     handler.send_response(status)
     handler.send_header("Content-Type", "application/json; charset=utf-8")
     handler.send_header("Content-Length", str(len(body)))
-    handler.send_header("Access-Control-Allow-Origin", "*")
     handler.end_headers()
     handler.wfile.write(body)
 
@@ -76,16 +77,19 @@ class _ChatHandler(BaseHTTPRequestHandler):
             self.send_error(404)
 
     def do_OPTIONS(self) -> None:
-        """Handle CORS preflight."""
+        """Handle CORS preflight (same-origin only)."""
         self.send_response(200)
-        self.send_header("Access-Control-Allow-Origin", "*")
         self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
         self.send_header("Access-Control-Allow-Headers", "Content-Type")
         self.end_headers()
 
     def _serve_html(self) -> None:
         html_path = TEMPLATE_DIR / "index.html"
-        content = html_path.read_bytes()
+        try:
+            content = html_path.read_bytes()
+        except (FileNotFoundError, OSError):
+            self.send_error(500, "Chat UI template not found")
+            return
         self.send_response(200)
         self.send_header("Content-Type", "text/html; charset=utf-8")
         self.send_header("Content-Length", str(len(content)))
@@ -94,7 +98,8 @@ class _ChatHandler(BaseHTTPRequestHandler):
 
     def _api_status(self) -> None:
         engine = _get_engine()
-        _json_response(self, engine.status())
+        with _engine_lock:
+            _json_response(self, engine.status())
 
     def _api_languages(self) -> None:
         codes = list_profiles()
@@ -118,12 +123,15 @@ class _ChatHandler(BaseHTTPRequestHandler):
                 _json_response(self, {"error": "Empty message"}, 400)
                 return
 
-            response = engine.chat(message)
-            _json_response(self, {
-                "response": response,
-                "language_code": engine.language_code,
-                "language_name": engine.language_name,
-            })
+            # Lock around the entire chat + state read to prevent race conditions
+            with _engine_lock:
+                response = engine.chat(message)
+                result = {
+                    "response": response,
+                    "language_code": engine.language_code,
+                    "language_name": engine.language_name,
+                }
+            _json_response(self, result)
         except PermissionError as exc:
             _json_response(self, {"error": str(exc)}, 403)
         except ValueError as exc:
@@ -142,29 +150,31 @@ class _ChatHandler(BaseHTTPRequestHandler):
             return
         try:
             code = (data.get("code") or "").strip()
-            if not code:
-                engine.language_code = None
-                engine.language_name = None
-                engine.auto_detect = True
-                _json_response(self, {"status": "auto-detect"})
-                return
+            with _engine_lock:
+                if not code:
+                    engine.language_code = None
+                    engine.language_name = None
+                    engine.auto_detect = True
+                    _json_response(self, {"status": "auto-detect"})
+                    return
 
-            profile = load_profile(code)
-            if profile:
-                engine.set_language(code, profile["name"])
-                _json_response(self, {
-                    "status": "ok",
-                    "code": code,
-                    "name": profile["name"],
-                })
-            else:
-                _json_response(self, {"error": f"Unknown language: {code}"}, 400)
+                profile = load_profile(code)
+                if profile:
+                    engine.set_language(code, profile["name"])
+                    _json_response(self, {
+                        "status": "ok",
+                        "code": code,
+                        "name": profile["name"],
+                    })
+                else:
+                    _json_response(self, {"error": f"Unknown language: {code}"}, 400)
         except (ValueError, KeyError) as exc:
             _json_response(self, {"error": str(exc)}, 400)
 
     def _api_reset(self) -> None:
         engine = _get_engine()
-        engine.reset()
+        with _engine_lock:
+            engine.reset()
         _json_response(self, {"status": "reset"})
 
     def log_message(self, format: str, *args) -> None:

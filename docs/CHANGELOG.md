@@ -8,7 +8,7 @@
 - Added interactive CLI chat REPL with `/lang`, `/langs`, `/reset`, `/status` commands
 - Added language-aware system prompts for culturally appropriate responses
 - Added `pat_chat` module: engine, backends, detect, prompts, cli, web
-- Added 19 chat module tests (35 total tests)
+- Added chat module tests (38 total tests)
 - Zero external dependencies — Ollama backend uses stdlib `urllib` only
 
 ## v1.1.0
