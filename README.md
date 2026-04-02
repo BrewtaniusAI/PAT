@@ -122,14 +122,14 @@ pat run "Habari Afrika" --profile sw --log audit.jsonl
 ```json
 {
   "schema_version": "0.1",
-  "input": "Ẹ káàárọ̀ Africa",
+  "input": "Ẹ káàárọ Africa",
   "status": "processed",
-  "tokens": ["ẹ", "káàárọ̀", "africa"],
-  "phonemes": ["ẹ", "káàárọ̀", "africa"],
+  "tokens": ["ẹ", "káàárọ", "africa"],
+  "phonemes": ["ẹ", "káàárọ", "africa"],
   "dialect": {
     "label": "yo",
-    "confidence": 0.5,
-    "matches": ["ẹ"]
+    "confidence": 0.6,
+    "matches": ["ẹ", "ọ"]
   },
   "policy": {
     "passed": true,
@@ -201,7 +201,7 @@ PAT uses Unicode NFC normalization before tokenization. The tokenizer handles di
 from pat_core.tokenizer import tokenize
 
 tokenize("Ẹ káàárọ̀ Africa")
-# → ['ẹ', 'káàárọ̀', 'africa']
+# → ['ẹ', 'káàárọ', 'africa']
 ```
 
 ### Dialect Detection
@@ -214,7 +214,7 @@ from pat_core.language_profiles import load_profile
 
 profile = load_profile("yo")
 result = detect_dialect("Ẹ káàárọ̀ ọba ilẹ", profile)
-# → DialectResult(label='yo', confidence=0.7, matches=['ẹ', 'ọba', 'ilẹ'])
+# → DialectResult(label='yo', confidence=0.8, matches=['ẹ', 'ọ', 'ọba', 'ọba'])
 ```
 
 ### Policy Enforcement
