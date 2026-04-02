@@ -92,13 +92,13 @@ pytest -q
 - Receipts and proof bundle export
 - Schema validation and release integrity checks
 - Contribution files and language steward guidance
-- AI-integrated Liquid Glass dashboard (`dashboard/index.html`)
+- AI-integrated Liquid Glass dashboard (see [Dashboard PR](https://github.com/BrewtaniusAI/PAT/pull/2))
 
 ---
 
 ## Dashboard
 
-PAT includes an AI-integrated **Liquid Glass** dashboard providing a visual interface for:
+PAT has an AI-integrated **Liquid Glass** dashboard providing a visual interface for:
 
 - Pipeline monitoring (5-stage INGEST → VALIDATE → HASH → POLICY → RECEIPT flow)
 - Audit trail inspection
@@ -107,7 +107,7 @@ PAT includes an AI-integrated **Liquid Glass** dashboard providing a visual inte
 - AI Auditor chat with provenance chain analysis
 - Command palette (`Ctrl+K`) with fuzzy search
 
-Open `dashboard/index.html` in any browser to launch.
+> **Note:** The dashboard is available on the [`devin/1775154432-ai-dashboard`](https://github.com/BrewtaniusAI/PAT/tree/devin/1775154432-ai-dashboard) branch. Once merged, open `dashboard/index.html` in any browser.
 
 ---
 
@@ -116,16 +116,18 @@ Open `dashboard/index.html` in any browser to launch.
 ```
 PAT/
 ├── src/                          # Runtime, validation, policy, audit, builder, CLI
-│   └── pat/
-│       ├── cli.py                # CLI entrypoint
-│       ├── runtime.py            # Core execution engine
-│       ├── validation.py         # Schema validation
-│       └── policy.py             # Policy enforcement
+│   ├── pat_cli.py                # CLI entrypoint
+│   ├── pat_core/                 # Core execution engine
+│   ├── pat_pipeline/             # Pipeline orchestration
+│   ├── pat_policy/               # Policy enforcement
+│   ├── pat_validation/           # Schema validation
+│   ├── pat_audit/                # Audit trail generation
+│   ├── pat_builder/              # Dataset builder
+│   ├── pat_release.py            # Release management
+│   └── pat_version.py            # Version info
 ├── configs/language_profiles/    # Seed language profiles (yo, sw, zu)
 ├── datasets/                     # Sample corpora and annotation materials
 ├── schemas/                      # Output and dataset JSON schemas
-├── dashboard/                    # Liquid Glass AI dashboard
-│   └── index.html
 ├── docs/                         # Governance, reproducibility, release docs
 ├── .github/workflows/            # CI/CD pipeline
 ├── feature_flags.yml             # Feature lifecycle management
