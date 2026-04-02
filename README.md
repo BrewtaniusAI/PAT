@@ -1,23 +1,3 @@
-Here's the upgraded PAT README — copy and paste the full content:
-
-```markdown
-<p align="center">
-  <strong>P · A · T</strong><br>
-  <em>Pan-African Language Infrastructure for AI</em>
-</p>
-
-<p align="center">
-  <a href="https://github.com/BrewtaniusAI/PAT/actions/workflows/ci.yml"><img src="https://github.com/BrewtaniusAI/PAT/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
-  <a href="https://doi.org/10.5281/zenodo.17046595"><img src="https://img.shields.io/badge/DOI-10.5281%2Fzenodo.17046595-blue" alt="DOI"></a>
-  <a href="#license"><img src="https://img.shields.io/badge/license-Apache--2.0-blue" alt="License"></a>
-  <a href="#ethical-framing"><img src="https://img.shields.io/badge/patent--free-public%20infrastructure-brightgreen" alt="Patent-Free"></a>
-  <img src="https://img.shields.io/badge/python-3.10%2B-blue" alt="Python 3.10+">
-  <img src="https://img.shields.io/badge/tests-13%20passing-brightgreen" alt="Tests">
-  <img src="https://img.shields.io/badge/version-1.0.0-informational" alt="Version">
-</p>
-
----
-
 **PAT** is a patent-free, reproducible language infrastructure framework that enables African languages to exist natively inside modern AI systems. Released as **executable prior art**, PAT provides governed pipelines for language data ingestion, profile-aware tokenization, dialect detection, policy enforcement, and cryptographic proof generation — preventing patent lockout on foundational language technology.
 
 > Part of the [CollectiveOS](https://github.com/BrewtaniusAI) ecosystem — governed by the **QC → GATA → GATA PRIME** pipeline.
