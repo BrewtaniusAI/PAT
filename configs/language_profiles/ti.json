@@ -1,7 +1,9 @@
 {
   "code": "ti",
   "name": "Tigrinya",
-  "preserve_characters": [],
+  "preserve_characters": [
+    "ä"
+  ],
   "keywords": [
     "selam",
     "yeqenyeley",

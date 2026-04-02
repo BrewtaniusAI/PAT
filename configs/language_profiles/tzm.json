@@ -2,12 +2,14 @@
   "code": "tzm",
   "name": "Tamazight",
   "preserve_characters": [
-    "ⴰ",
-    "ⴱ",
-    "ⴳ",
-    "ⴷ",
-    "ⵔ",
-    "ⵣ"
+    "ḍ",
+    "ḥ",
+    "ṛ",
+    "ṣ",
+    "ṭ",
+    "ẓ",
+    "ɛ",
+    "ɣ"
   ],
   "keywords": [
     "azul",

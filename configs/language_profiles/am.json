@@ -2,9 +2,7 @@
   "code": "am",
   "name": "Amharic",
   "preserve_characters": [
-    "ä",
-    "ü",
-    "ö"
+    "ä"
   ],
   "keywords": [
     "selam",
