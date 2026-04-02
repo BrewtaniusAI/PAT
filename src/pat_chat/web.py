@@ -149,7 +149,7 @@ class _ChatHandler(BaseHTTPRequestHandler):
             _json_response(self, {"error": "Invalid JSON"}, 400)
             return
         try:
-            code = (data.get("code") or "").strip()
+            code = str(data.get("code") or "").strip()
             with _engine_lock:
                 if not code:
                     engine.language_code = None
