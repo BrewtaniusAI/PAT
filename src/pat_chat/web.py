@@ -117,6 +117,9 @@ class _ChatHandler(BaseHTTPRequestHandler):
         except json.JSONDecodeError:
             _json_response(self, {"error": "Invalid JSON"}, 400)
             return
+        if not isinstance(data, dict):
+            _json_response(self, {"error": "Expected JSON object"}, 400)
+            return
         try:
             message = data.get("message", "").strip()
             if not message:
@@ -147,6 +150,9 @@ class _ChatHandler(BaseHTTPRequestHandler):
             data = json.loads(body) if body else {}
         except json.JSONDecodeError:
             _json_response(self, {"error": "Invalid JSON"}, 400)
+            return
+        if not isinstance(data, dict):
+            _json_response(self, {"error": "Expected JSON object"}, 400)
             return
         try:
             code = str(data.get("code") or "").strip()
