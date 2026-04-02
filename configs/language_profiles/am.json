@@ -1,0 +1,19 @@
+{
+  "code": "am",
+  "name": "Amharic",
+  "preserve_characters": [
+    "ä",
+    "ü",
+    "ö"
+  ],
+  "keywords": [
+    "selam",
+    "ameseginalehu",
+    "betam",
+    "ityopya",
+    "addis",
+    "abeba",
+    "habesha",
+    "afrika"
+  ]
+}

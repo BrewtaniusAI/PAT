@@ -1,0 +1,20 @@
+{
+  "code": "mnk",
+  "name": "Mandinka",
+  "preserve_characters": [
+    "ɛ",
+    "ɔ",
+    "ŋ",
+    "ɲ"
+  ],
+  "keywords": [
+    "abenyadi",
+    "abaraka",
+    "gambia",
+    "mansa",
+    "kora",
+    "griot",
+    "senegambia",
+    "afrika"
+  ]
+}

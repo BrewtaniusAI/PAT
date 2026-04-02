@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.1.0
+- Expanded language profiles from 3 to 71, covering all major African language families
+- Added West African languages: Hausa, Igbo, Akan, Twi, Ewe, Fulfulde, Wolof, Bambara, Fon, Kanuri, Mandinka, Soninke, Dagbani, Mooré, Dyula, Susu, Temne, Mende
+- Added East African languages: Amharic, Oromo, Tigrinya, Somali, Luganda, Kinyarwanda, Kirundi, Gĩkũyũ, Dholuo, Kamba, Ekegusii, Maa
+- Added Southern African languages: isiXhosa, Sesotho, Setswana, siSwati, Tshivenda, Xitsonga, isiNdebele (SA & ZW), Sepedi, Afrikaans, Shona, Chichewa, Bemba, Tumbuka, Lozi
+- Added Central African languages: Lingala, Kikongo, Kiluba, Tshiluba, Sango, Kiswahili cha Congo
+- Added North African languages: Maghrebi Arabic, Kabyle, Tamazight, Standard Moroccan Tamazight, Tachelhit
+- Added Nilo-Saharan languages: Dinka, Nuer
+- Added additional languages: Malagasy, Ga, Berber, Tamashek, Songhai, Tigre, Sidamo, Wolaytta, Geʽez
+- Added comprehensive profile validation tests
+- Updated documentation to reflect full continental coverage
+
 ## v1.0.0
 - Added docs index
 - Added mkdocs site config

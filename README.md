@@ -23,7 +23,8 @@ PAT begins with a simple principle: language infrastructure should be open, repr
 
 - governed execution pipeline
 - validation and policy enforcement
-- language profiles for Yorùbá, Kiswahili, and isiZulu
+- 71 language profiles spanning West, East, Southern, Central, and North Africa
+- seed profiles include Yorùbá, Kiswahili, isiZulu, Hausa, Igbo, Amharic, Oromo, Wolof, Bambara, Lingala, Shona, isiXhosa, Sesotho, Setswana, and many more
 - profile-aware tokenization path
 - dataset builder and batch dataset builder
 - receipts and proof bundle export
@@ -66,7 +67,7 @@ pat release-check --repo-root .
 ## Repository map
 
 - `src/` — runtime, validation, policy, audit, builder, and CLI code
-- `configs/language_profiles/` — seed language profiles
+- `configs/language_profiles/` — 71 language profiles across the continent
 - `datasets/` — sample corpora and annotation materials
 - `schemas/` — output and dataset schemas
 - `docs/` — governance, reproducibility, release, and publication materials
