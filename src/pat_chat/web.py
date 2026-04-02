@@ -135,6 +135,7 @@ class _ChatHandler(SimpleHTTPRequestHandler):
             if not code:
                 engine.language_code = None
                 engine.language_name = None
+                engine.auto_detect = True
                 _json_response(self, {"status": "auto-detect"})
                 return
 
@@ -148,7 +149,7 @@ class _ChatHandler(SimpleHTTPRequestHandler):
                 })
             else:
                 _json_response(self, {"error": f"Unknown language: {code}"}, 400)
-        except ValueError as exc:
+        except (ValueError, KeyError) as exc:
             _json_response(self, {"error": str(exc)}, 400)
 
     def _api_reset(self) -> None:

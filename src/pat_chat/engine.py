@@ -22,9 +22,10 @@ class ChatEngine:
     model: str | None = None
 
     def set_language(self, code: str, name: str) -> None:
-        """Manually set the conversation language."""
+        """Manually set the conversation language and disable auto-detect."""
         self.language_code = code
         self.language_name = name
+        self.auto_detect = False
 
     def _detect_and_update(self, text: str) -> None:
         """Auto-detect language from user text and update if confident."""
@@ -68,10 +69,11 @@ class ChatEngine:
         return response
 
     def reset(self) -> None:
-        """Clear conversation history and language state."""
+        """Clear conversation history and language state, re-enable auto-detect."""
         self.history.clear()
         self.language_code = None
         self.language_name = None
+        self.auto_detect = True
 
     def status(self) -> dict:
         """Return current engine status."""

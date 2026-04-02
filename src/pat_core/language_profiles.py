@@ -10,7 +10,12 @@ def list_profiles() -> list[str]:
 def load_profile(profile_code: str | None) -> dict | None:
     if not profile_code:
         return None
-    path = PROFILE_DIR / f"{profile_code}.json"
+    # Reject path traversal attempts
+    if "/" in profile_code or "\\" in profile_code or ".." in profile_code:
+        raise ValueError(f"Invalid profile code: {profile_code}")
+    path = (PROFILE_DIR / f"{profile_code}.json").resolve()
+    if not str(path).startswith(str(PROFILE_DIR.resolve())):
+        raise ValueError(f"Invalid profile code: {profile_code}")
     if not path.exists():
         raise ValueError(f"Unknown profile: {profile_code}")
     return json.loads(path.read_text(encoding="utf-8"))
