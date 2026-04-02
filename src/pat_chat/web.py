@@ -121,7 +121,7 @@ class _ChatHandler(BaseHTTPRequestHandler):
             _json_response(self, {"error": "Expected JSON object"}, 400)
             return
         try:
-            message = data.get("message", "").strip()
+            message = str(data.get("message") or "").strip()
             if not message:
                 _json_response(self, {"error": "Empty message"}, 400)
                 return

@@ -393,7 +393,7 @@ function addMessage(role, text, langCode) {
   div.className = `message ${role}`;
   let meta = '';
   if (role === 'assistant' && langCode) {
-    meta = `<div class="meta">PAT <span class="lang-tag">${langCode}</span></div>`;
+    meta = `<div class="meta">PAT <span class="lang-tag">${escapeHtml(langCode)}</span></div>`;
   } else if (role === 'user') {
     meta = '<div class="meta">You</div>';
   }
