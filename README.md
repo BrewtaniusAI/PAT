@@ -1,6 +1,3 @@
-Here's the upgraded PAT README — copy and paste the full content:
-
-```markdown
 <p align="center">
   <strong>P · A · T</strong><br>
   <em>Pan-African Language Infrastructure for AI</em>
@@ -524,4 +521,9 @@ Archived at [doi.org/10.5281/zenodo.17046595](https://doi.org/10.5281/zenodo.170
 **Apache-2.0** with a **Patent-Free Science** overlay.
 
 PAT is released as executable public knowledge and prior art. No component of this framework may be used to seek or enforce patents on African language processing methods.
-```
+
+See [LICENSE.md](LICENSE.md) for details.
+
+---
+
+<p align="center"><em>Built by BrewtaniusAI · Part of CollectiveOS · Patent-free forever</em></p>
