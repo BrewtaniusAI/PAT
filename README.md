@@ -31,6 +31,9 @@ PAT begins with a simple principle: language infrastructure should be open, repr
 - schema validation and release integrity checks
 - contribution files and language steward guidance
 - publication pack for GitHub and Zenodo release
+- AI chat with all 71 languages (CLI + web UI)
+- pluggable LLM backends: Ollama (local/offline), OpenAI, Anthropic
+- auto language detection across all profiles
 
 ## Core execution model
 
@@ -55,6 +58,25 @@ pat build-dataset input.json output.json
 pat build-dataset-batch input_dir output_dir
 ```
 
+### AI Chat
+
+```bash
+# Interactive terminal chat (auto-detects language)
+pat chat
+
+# Chat in a specific language
+pat chat --profile yo
+
+# Use a specific LLM backend
+pat chat --backend ollama
+pat chat --backend openai   # requires OPENAI_API_KEY
+pat chat --backend anthropic # requires ANTHROPIC_API_KEY
+
+# Launch web chat UI
+pat chat-web
+pat chat-web --port 3000
+```
+
 ### Generate integrity artifacts
 
 ```bash
@@ -66,7 +88,8 @@ pat release-check --repo-root .
 
 ## Repository map
 
-- `src/` — runtime, validation, policy, audit, builder, and CLI code
+- `src/` — runtime, validation, policy, audit, builder, chat, and CLI code
+- `src/pat_chat/` — AI chat engine, backends, web UI, language detection
 - `configs/language_profiles/` — 71 language profiles across the continent
 - `datasets/` — sample corpora and annotation materials
 - `schemas/` — output and dataset schemas

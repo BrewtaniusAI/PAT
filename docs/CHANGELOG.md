@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.2.0
+- Added AI chat with all 71 African languages (`pat chat` and `pat chat-web`)
+- Added pluggable LLM backends: Ollama (local/offline default), OpenAI, Anthropic, Echo (testing)
+- Added auto language detection across all 71 profiles
+- Added web chat UI with dark mode, language selector, and typing indicators
+- Added interactive CLI chat REPL with `/lang`, `/langs`, `/reset`, `/status` commands
+- Added language-aware system prompts for culturally appropriate responses
+- Added `pat_chat` module: engine, backends, detect, prompts, cli, web
+- Added 19 chat module tests (35 total tests)
+- Zero external dependencies — Ollama backend uses stdlib `urllib` only
+
 ## v1.1.0
 - Expanded language profiles from 3 to 71, covering all major African language families
 - Added West African languages: Hausa, Igbo, Akan, Twi, Ewe, Fulfulde, Wolof, Bambara, Fon, Kanuri, Mandinka, Soninke, Dagbani, Mooré, Dyula, Susu, Temne, Mende
