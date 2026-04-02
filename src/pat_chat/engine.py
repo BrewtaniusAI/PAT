@@ -33,7 +33,7 @@ class ChatEngine:
         if not self.auto_detect:
             return
         result = detect_language(text)
-        if result.confidence >= 0.4:
+        if result.confidence >= 0.6:
             self.language_code = result.code
             self.language_name = result.name
 

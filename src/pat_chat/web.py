@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from http.server import HTTPServer, SimpleHTTPRequestHandler
+from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse
 
 from pat_chat.backends import (
@@ -41,7 +41,7 @@ def _json_response(handler: "_ChatHandler", data: dict | list, status: int = 200
     handler.wfile.write(body)
 
 
-class _ChatHandler(SimpleHTTPRequestHandler):
+class _ChatHandler(BaseHTTPRequestHandler):
     """HTTP handler for PAT Chat web UI."""
 
     def do_GET(self) -> None:
