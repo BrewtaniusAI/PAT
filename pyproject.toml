@@ -15,6 +15,9 @@ dependencies = []
 [project.scripts]
 pat = "pat_cli:main"
 
+[tool.setuptools.package-data]
+pat_chat = ["templates/*.html"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]

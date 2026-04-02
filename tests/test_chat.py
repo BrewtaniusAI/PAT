@@ -64,8 +64,8 @@ def test_auto_select_backend_returns_backend():
 
 def test_detect_language_yoruba():
     result = detect_language("Ẹ káàárọ̀, bawo ni? nagode lafiya")
-    # Should detect something (may vary based on keyword overlap)
-    assert result.code is not None
+    assert result.confidence > 0
+    assert result.code != "unknown"
 
 
 def test_detect_language_hausa():
@@ -119,6 +119,18 @@ def test_engine_manual_language_set():
     engine.set_language("yo", "Yorùbá")
     assert engine.language_code == "yo"
     assert engine.language_name == "Yorùbá"
+    assert engine.auto_detect is False
+
+
+def test_engine_manual_language_persists_across_chat():
+    """Manual language override must not be overwritten by auto-detection."""
+    engine = ChatEngine(backend=EchoBackend())
+    engine.set_language("yo", "Yorùbá")
+    # Send a message with Hausa keywords — should NOT switch language
+    engine.chat("sannu nagode lafiya gaskiya mutum")
+    assert engine.language_code == "yo"
+    assert engine.language_name == "Yorùbá"
+    assert engine.auto_detect is False
 
 
 def test_engine_history():

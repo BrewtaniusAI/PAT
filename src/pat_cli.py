@@ -54,7 +54,7 @@ def main() -> None:
     chat_parser.add_argument("--model", default=None, help="Model name override")
 
     web_parser = subparsers.add_parser("chat-web", help="Launch web-based chat UI")
-    web_parser.add_argument("--host", default="0.0.0.0", help="Host to bind (default: 0.0.0.0)")
+    web_parser.add_argument("--host", default="127.0.0.1", help="Host to bind (default: 127.0.0.1)")
     web_parser.add_argument("--port", type=int, default=8080, help="Port to bind (default: 8080)")
     web_parser.add_argument("--profile", dest="profile_code", default=None, help="Language profile code")
     web_parser.add_argument("--backend", default=None, help="LLM backend: ollama, openai, anthropic, echo")

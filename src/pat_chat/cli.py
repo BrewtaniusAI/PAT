@@ -1,8 +1,6 @@
 """PAT Chat CLI — interactive multilingual chat in the terminal."""
 from __future__ import annotations
 
-import sys
-
 from pat_chat.backends import (
     AnthropicBackend,
     ChatBackend,

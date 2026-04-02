@@ -3,7 +3,9 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from http.server import HTTPServer, BaseHTTPRequestHandler
+from http.server import BaseHTTPRequestHandler
+from socketserver import ThreadingMixIn
+import http.server
 from urllib.parse import urlparse
 
 from pat_chat.backends import (
@@ -107,6 +109,10 @@ class _ChatHandler(BaseHTTPRequestHandler):
         engine = _get_engine()
         try:
             data = json.loads(body) if body else {}
+        except json.JSONDecodeError:
+            _json_response(self, {"error": "Invalid JSON"}, 400)
+            return
+        try:
             message = data.get("message", "").strip()
             if not message:
                 _json_response(self, {"error": "Empty message"}, 400)
@@ -131,6 +137,10 @@ class _ChatHandler(BaseHTTPRequestHandler):
         engine = _get_engine()
         try:
             data = json.loads(body) if body else {}
+        except json.JSONDecodeError:
+            _json_response(self, {"error": "Invalid JSON"}, 400)
+            return
+        try:
             code = (data.get("code") or "").strip()
             if not code:
                 engine.language_code = None
@@ -163,7 +173,7 @@ class _ChatHandler(BaseHTTPRequestHandler):
 
 
 def run_web_server(
-    host: str = "0.0.0.0",
+    host: str = "127.0.0.1",
     port: int = 8080,
     backend_name: str | None = None,
     profile_code: str | None = None,
@@ -198,7 +208,10 @@ def run_web_server(
         except ValueError:
             pass
 
-    server = HTTPServer((host, port), _ChatHandler)
+    class _ThreadingHTTPServer(ThreadingMixIn, http.server.HTTPServer):
+        daemon_threads = True
+
+    server = _ThreadingHTTPServer((host, port), _ChatHandler)
     status = _engine.status()
 
     print()

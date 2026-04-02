@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from functools import lru_cache
 
 from pat_core.dialect import DialectResult, detect_dialect
 from pat_core.language_profiles import list_profiles, load_profile
@@ -17,6 +18,17 @@ class DetectionResult:
     matches: list[str]
 
 
+@lru_cache(maxsize=1)
+def _load_all_profiles() -> tuple[tuple[str, dict], ...]:
+    """Load and cache all language profiles to avoid repeated disk I/O."""
+    profiles = []
+    for code in list_profiles():
+        profile = load_profile(code)
+        if profile is not None:
+            profiles.append((code, profile))
+    return tuple(profiles)
+
+
 def detect_language(text: str) -> DetectionResult:
     """Scan input text against every profile and return the best match.
 
@@ -27,10 +39,7 @@ def detect_language(text: str) -> DetectionResult:
     best_confidence = 0.0
     best_matches: list[str] = []
 
-    for code in list_profiles():
-        profile = load_profile(code)
-        if profile is None:
-            continue
+    for code, profile in _load_all_profiles():
         result: DialectResult = detect_dialect(text, profile)
         if result.confidence > best_confidence:
             best_code = code

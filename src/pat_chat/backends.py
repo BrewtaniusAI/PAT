@@ -1,7 +1,7 @@
 """Pluggable LLM backends for PAT chat.
 
-Ollama backend uses only stdlib (urllib) — zero external dependencies.
-OpenAI and Anthropic backends require their respective libraries.
+All backends use only stdlib (urllib) — zero external dependencies.
+OpenAI and Anthropic backends require API keys but no third-party libraries.
 """
 from __future__ import annotations
 
