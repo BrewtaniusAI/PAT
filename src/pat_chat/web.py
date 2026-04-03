@@ -53,12 +53,20 @@ def _check_rate_limit(client_ip: str) -> bool:
     """Return True if the request is within rate limits, False if exceeded."""
     now = time.time()
     with _rate_lock:
-        bucket = _rate_buckets[client_ip]
+        bucket = _rate_buckets.get(client_ip, [])
         # Prune old entries outside the window
-        _rate_buckets[client_ip] = [t for t in bucket if now - t < _RATE_WINDOW]
-        if len(_rate_buckets[client_ip]) >= _RATE_LIMIT:
+        bucket = [t for t in bucket if now - t < _RATE_WINDOW]
+        if len(bucket) >= _RATE_LIMIT:
+            _rate_buckets[client_ip] = bucket
             return False
-        _rate_buckets[client_ip].append(now)
+        bucket.append(now)
+        _rate_buckets[client_ip] = bucket
+        # Evict stale IPs to prevent unbounded memory growth
+        if len(_rate_buckets) > 1000:
+            stale = [ip for ip, ts in _rate_buckets.items()
+                     if not ts or now - ts[-1] >= _RATE_WINDOW]
+            for ip in stale:
+                del _rate_buckets[ip]
         return True
 
 
