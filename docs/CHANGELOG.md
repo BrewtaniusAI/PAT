@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.3.0
+- **Code-switching detection**: Multi-language detection per text — identifies when users mix languages mid-sentence (e.g., isiZulu + English, Wolof + French), a key differentiator for real-world African communication
+- **REST API hardening**: `/api/health` readiness probe, `/api/batch` for enterprise batch language detection (up to 100 texts), `/api/detect` for single-text code-switching analysis, `/api/metrics` for session telemetry
+- **Rate limiting**: Token-bucket rate limiter (30 req/min per IP) protects API from abuse
+- **Session metrics**: Per-session usage tracking — message counts, character volumes, languages seen, code-switch events, session duration
+- **Offline-first architecture**: Positioned as edge-deployable infrastructure with zero external dependencies; Ollama local backend runs entirely offline
+- Added GTM blueprint to `docs/` for commercialization reference
+- Tests expanded from 38 to 47 (code-switching, metrics, batch detection, state isolation)
+
 ## v1.2.0
 - Added AI chat with all 71 African languages (`pat chat` and `pat chat-web`)
 - Added pluggable LLM backends: Ollama (local/offline default), OpenAI, Anthropic, Echo (testing)

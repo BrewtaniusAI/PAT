@@ -1,4 +1,8 @@
-"""Auto-detect language from text across all 71 African language profiles."""
+"""Auto-detect language from text across all 71 African language profiles.
+
+Supports both single-language detection and code-switching detection
+(identifying multiple languages mixed within a single text).
+"""
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -16,6 +20,21 @@ class DetectionResult:
     name: str
     confidence: float
     matches: list[str]
+
+
+@dataclass(frozen=True)
+class CodeSwitchResult:
+    """Result of code-switching detection — multiple languages in one text.
+
+    Attributes:
+        primary: The dominant language detected.
+        secondary: Other languages detected above the confidence threshold.
+        is_code_switched: True if multiple languages are detected.
+    """
+
+    primary: DetectionResult
+    secondary: list[DetectionResult]
+    is_code_switched: bool
 
 
 @lru_cache(maxsize=1)
@@ -52,4 +71,54 @@ def detect_language(text: str) -> DetectionResult:
         name=best_name,
         confidence=best_confidence,
         matches=best_matches,
+    )
+
+
+def detect_code_switching(
+    text: str, threshold: float = 0.4
+) -> CodeSwitchResult:
+    """Detect multiple languages in a single text (code-switching).
+
+    Code-switching is the fluid mixing of multiple languages within a single
+    utterance — common across urban African populations (e.g., isiZulu + English,
+    French + Wolof). This function identifies all languages present above the
+    confidence threshold, enabling PAT to handle real-world multilingual input.
+
+    Args:
+        text: The input text to analyze.
+        threshold: Minimum confidence for a language to be considered present.
+
+    Returns:
+        CodeSwitchResult with primary language and any secondary languages.
+    """
+    scored: list[DetectionResult] = []
+
+    for code, profile in _load_all_profiles():
+        result: DialectResult = detect_dialect(text, profile)
+        if result.confidence >= threshold:
+            scored.append(
+                DetectionResult(
+                    code=code,
+                    name=profile.get("name", code),
+                    confidence=result.confidence,
+                    matches=result.matches,
+                )
+            )
+
+    # Sort by confidence descending
+    scored.sort(key=lambda r: r.confidence, reverse=True)
+
+    if not scored:
+        unknown = DetectionResult(
+            code="unknown", name="Unknown", confidence=0.0, matches=[]
+        )
+        return CodeSwitchResult(primary=unknown, secondary=[], is_code_switched=False)
+
+    primary = scored[0]
+    secondary = scored[1:]
+
+    return CodeSwitchResult(
+        primary=primary,
+        secondary=secondary,
+        is_code_switched=len(scored) > 1,
     )

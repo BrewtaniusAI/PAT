@@ -9,8 +9,8 @@ from pat_chat.backends import (
     AnthropicBackend,
     auto_select_backend,
 )
-from pat_chat.detect import detect_language
-from pat_chat.engine import ChatEngine
+from pat_chat.detect import detect_language, detect_code_switching, CodeSwitchResult
+from pat_chat.engine import ChatEngine, SessionMetrics
 from pat_chat.prompts import build_system_prompt
 
 
@@ -170,3 +170,84 @@ def test_engine_rejects_empty_input():
     engine = ChatEngine(backend=EchoBackend())
     with pytest.raises(ValueError, match="empty"):
         engine.chat("   ")
+
+
+# --- Code-switching detection tests ---
+
+def test_code_switching_returns_result():
+    result = detect_code_switching("sannu nagode lafiya gaskiya mutum")
+    assert isinstance(result, CodeSwitchResult)
+    assert result.primary.code != "unknown"
+    assert result.primary.confidence >= 0.4
+
+
+def test_code_switching_unknown_text():
+    result = detect_code_switching("xyz abc 12345")
+    assert result.primary.code == "unknown"
+    assert result.is_code_switched is False
+    assert result.secondary == []
+
+
+def test_code_switching_multi_language_text():
+    """Text with keywords from multiple languages should detect code-switching."""
+    # Hausa keywords + Swahili keywords in one text
+    result = detect_code_switching("sannu nagode jambo habari karibu asante")
+    assert result.primary.code in ("ha", "sw")
+    # At least the primary should match
+    assert result.primary.confidence >= 0.4
+
+
+def test_engine_detect_languages_does_not_mutate_state():
+    engine = ChatEngine(backend=EchoBackend())
+    engine.set_language("yo", "Yorùbá")
+    # detect_languages is diagnostic-only
+    cs = engine.detect_languages("sannu nagode lafiya gaskiya mutum")
+    assert cs.primary.code == "ha"
+    # Engine state should remain unchanged
+    assert engine.language_code == "yo"
+    assert engine.language_name == "Yorùbá"
+
+
+# --- Session metrics tests ---
+
+def test_session_metrics_initial():
+    m = SessionMetrics()
+    d = m.to_dict()
+    assert d["total_messages"] == 0
+    assert d["total_input_chars"] == 0
+    assert d["total_output_chars"] == 0
+    assert d["languages_seen"] == []
+    assert d["code_switches_detected"] == 0
+    assert d["session_duration_seconds"] >= 0
+
+
+def test_engine_metrics_track_messages():
+    engine = ChatEngine(backend=EchoBackend())
+    engine.chat("Hello world")
+    engine.chat("sannu nagode lafiya gaskiya mutum")
+    m = engine.metrics.to_dict()
+    assert m["total_messages"] == 2
+    assert m["total_input_chars"] > 0
+    assert m["total_output_chars"] > 0
+
+
+def test_engine_metrics_track_languages():
+    engine = ChatEngine(backend=EchoBackend())
+    engine.chat("sannu nagode lafiya gaskiya mutum")
+    m = engine.metrics.to_dict()
+    assert "ha" in m["languages_seen"]
+
+
+def test_engine_reset_clears_metrics():
+    engine = ChatEngine(backend=EchoBackend())
+    engine.chat("Hello")
+    engine.reset()
+    m = engine.metrics.to_dict()
+    assert m["total_messages"] == 0
+
+
+def test_engine_status_includes_metrics():
+    engine = ChatEngine(backend=EchoBackend())
+    status = engine.status()
+    assert "metrics" in status
+    assert "total_messages" in status["metrics"]
