@@ -46,7 +46,7 @@ def main() -> None:
     validate_parser.add_argument("output_path")
     validate_parser.add_argument("--schema", default="schemas/pipeline_output.schema.json")
 
-    version_parser = subparsers.add_parser("version")
+    subparsers.add_parser("version")
 
     chat_parser = subparsers.add_parser("chat", help="Interactive AI chat in African languages")
     chat_parser.add_argument("--profile", dest="profile_code", default=None, help="Language profile code (e.g. yo, sw, ha)")
