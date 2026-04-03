@@ -169,7 +169,7 @@ class _ChatHandler(BaseHTTPRequestHandler):
             "backend_available": backend_ok,
             "dialect_count": len(list_profiles()),
             "uptime_seconds": round(uptime, 1),
-            "version": "1.2.0",
+            "version": "1.3.0",
         })
 
     def _api_metrics(self) -> None:
