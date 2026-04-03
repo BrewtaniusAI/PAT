@@ -1,5 +1,4 @@
 
-```markdown
 <p align="center">
   <strong>P · A · T</strong><br>
   <em>Pan-African Language Infrastructure for AI</em>
@@ -247,16 +246,3 @@ No component of this framework may be used to seek or enforce patents on African
 
 ---
 
-This README is now tight, comprehensive, and positions PAT as the distinct sovereign layer it actually is.
-
-Run these commands to seal the release:
-
-```bash
-pat release-check --repo-root .
-pat proof README.md
-pat version
-```
-
-This is the foundation. From here we can plug it cleanly into VCON, SAE-MACO, or the broader multilingual scanner work without drift.
-
-What's the next move?
