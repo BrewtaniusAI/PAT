@@ -17,6 +17,14 @@ src/pat_audit/receipts.py
 src/pat_builder/__init__.py
 src/pat_builder/batch.py
 src/pat_builder/builder.py
+src/pat_chat/__init__.py
+src/pat_chat/backends.py
+src/pat_chat/cli.py
+src/pat_chat/detect.py
+src/pat_chat/engine.py
+src/pat_chat/prompts.py
+src/pat_chat/web.py
+src/pat_chat/templates/index.html
 src/pat_core/__init__.py
 src/pat_core/dialect.py
 src/pat_core/language_profiles.py
@@ -30,6 +38,7 @@ src/pat_validation/__init__.py
 src/pat_validation/schema_check.py
 src/pat_validation/validator.py
 tests/test_batch_builder.py
+tests/test_chat.py
 tests/test_pipeline.py
 tests/test_policy.py
 tests/test_profiles.py

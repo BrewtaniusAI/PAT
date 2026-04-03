@@ -1,5 +1,4 @@
 from __future__ import annotations
-import json
 from pathlib import Path
 from pat_builder.builder import build_dataset
 

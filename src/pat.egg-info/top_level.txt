@@ -1,5 +1,6 @@
 pat_audit
 pat_builder
+pat_chat
 pat_cli
 pat_core
 pat_pipeline

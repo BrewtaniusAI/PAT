@@ -9,7 +9,7 @@ import time
 from dataclasses import dataclass, field
 
 from pat_chat.backends import ChatBackend, ChatMessage, auto_select_backend
-from pat_chat.detect import CodeSwitchResult, detect_code_switching, detect_language
+from pat_chat.detect import CodeSwitchResult, detect_code_switching
 from pat_chat.prompts import build_system_prompt
 from pat_policy.policy import enforce_policy
 from pat_validation.validator import validate_input
