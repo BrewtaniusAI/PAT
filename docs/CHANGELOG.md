@@ -1,5 +1,37 @@
 # Changelog
 
+## v1.3.0
+- **Code-switching detection**: Multi-language detection per text — identifies when users mix languages mid-sentence (e.g., isiZulu + English, Wolof + French), a key differentiator for real-world African communication
+- **REST API hardening**: `/api/health` readiness probe, `/api/batch` for enterprise batch language detection (up to 100 texts), `/api/detect` for single-text code-switching analysis, `/api/metrics` for session telemetry
+- **Rate limiting**: Token-bucket rate limiter (30 req/min per IP) protects API from abuse
+- **Session metrics**: Per-session usage tracking — message counts, character volumes, languages seen, code-switch events, session duration
+- **Offline-first architecture**: Positioned as edge-deployable infrastructure with zero external dependencies; Ollama local backend runs entirely offline
+- Added GTM blueprint to `docs/` for commercialization reference
+- Tests expanded from 38 to 47 (code-switching, metrics, batch detection, state isolation)
+
+## v1.2.0
+- Added AI chat with all 71 African languages (`pat chat` and `pat chat-web`)
+- Added pluggable LLM backends: Ollama (local/offline default), OpenAI, Anthropic, Echo (testing)
+- Added auto language detection across all 71 profiles
+- Added web chat UI with dark mode, language selector, and typing indicators
+- Added interactive CLI chat REPL with `/lang`, `/langs`, `/reset`, `/status` commands
+- Added language-aware system prompts for culturally appropriate responses
+- Added `pat_chat` module: engine, backends, detect, prompts, cli, web
+- Added chat module tests (38 total tests)
+- Zero external dependencies — Ollama backend uses stdlib `urllib` only
+
+## v1.1.0
+- Expanded language profiles from 3 to 71, covering all major African language families
+- Added West African languages: Hausa, Igbo, Akan, Twi, Ewe, Fulfulde, Wolof, Bambara, Fon, Kanuri, Mandinka, Soninke, Dagbani, Mooré, Dyula, Susu, Temne, Mende
+- Added East African languages: Amharic, Oromo, Tigrinya, Somali, Luganda, Kinyarwanda, Kirundi, Gĩkũyũ, Dholuo, Kamba, Ekegusii, Maa
+- Added Southern African languages: isiXhosa, Sesotho, Setswana, siSwati, Tshivenda, Xitsonga, isiNdebele (SA & ZW), Sepedi, Afrikaans, Shona, Chichewa, Bemba, Tumbuka, Lozi
+- Added Central African languages: Lingala, Kikongo, Kiluba, Tshiluba, Sango, Kiswahili cha Congo
+- Added North African languages: Maghrebi Arabic, Kabyle, Tamazight, Standard Moroccan Tamazight, Tachelhit
+- Added Nilo-Saharan languages: Dinka, Nuer
+- Added additional languages: Malagasy, Ga, Berber, Tamashek, Songhai, Tigre, Sidamo, Wolaytta, Geʽez
+- Added comprehensive profile validation tests
+- Updated documentation to reflect full continental coverage
+
 ## v1.0.0
 - Added docs index
 - Added mkdocs site config

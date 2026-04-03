@@ -1,0 +1,21 @@
+{
+  "code": "wo",
+  "name": "Wolof",
+  "preserve_characters": [
+    "ñ",
+    "ŋ",
+    "à",
+    "é",
+    "ë"
+  ],
+  "keywords": [
+    "nanga",
+    "jërejëf",
+    "ndank",
+    "teranga",
+    "dakar",
+    "senegal",
+    "thiéboudienne",
+    "afrika"
+  ]
+}

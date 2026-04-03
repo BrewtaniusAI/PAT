@@ -1,0 +1,23 @@
+{
+  "code": "af",
+  "name": "Afrikaans",
+  "preserve_characters": [
+    "ë",
+    "ê",
+    "î",
+    "ô",
+    "û",
+    "é",
+    "è",
+    "ï"
+  ],
+  "keywords": [
+    "hallo",
+    "dankie",
+    "baie",
+    "goeie",
+    "kaapstad",
+    "suid",
+    "afrika"
+  ]
+}

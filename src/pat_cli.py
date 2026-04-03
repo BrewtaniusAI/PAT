@@ -48,6 +48,18 @@ def main() -> None:
 
     version_parser = subparsers.add_parser("version")
 
+    chat_parser = subparsers.add_parser("chat", help="Interactive AI chat in African languages")
+    chat_parser.add_argument("--profile", dest="profile_code", default=None, help="Language profile code (e.g. yo, sw, ha)")
+    chat_parser.add_argument("--backend", default=None, help="LLM backend: ollama, openai, anthropic, echo")
+    chat_parser.add_argument("--model", default=None, help="Model name override")
+
+    web_parser = subparsers.add_parser("chat-web", help="Launch web-based chat UI")
+    web_parser.add_argument("--host", default="127.0.0.1", help="Host to bind (default: 127.0.0.1)")
+    web_parser.add_argument("--port", type=int, default=8080, help="Port to bind (default: 8080)")
+    web_parser.add_argument("--profile", dest="profile_code", default=None, help="Language profile code")
+    web_parser.add_argument("--backend", default=None, help="LLM backend: ollama, openai, anthropic, echo")
+    web_parser.add_argument("--model", default=None, help="Model name override")
+
     args = parser.parse_args()
 
     if args.command == "run":
@@ -75,6 +87,22 @@ def main() -> None:
         print(json.dumps(validate_pipeline_output_file(args.output_path, args.schema), indent=2, ensure_ascii=False))
     elif args.command == "version":
         print(get_version())
+    elif args.command == "chat":
+        from pat_chat.cli import run_chat_cli
+        run_chat_cli(
+            backend_name=args.backend,
+            profile_code=args.profile_code,
+            model=args.model,
+        )
+    elif args.command == "chat-web":
+        from pat_chat.web import run_web_server
+        run_web_server(
+            host=args.host,
+            port=args.port,
+            backend_name=args.backend,
+            profile_code=args.profile_code,
+            model=args.model,
+        )
 
 if __name__ == "__main__":
     main()

@@ -13,7 +13,9 @@
   <img src="https://img.shields.io/badge/python-3.10%2B-blue" alt="Python 3.10+">
   <img src="https://img.shields.io/badge/dialects-71-brightgreen" alt="71 Dialects">
   <img src="https://img.shields.io/badge/chat-enabled-brightgreen" alt="Chat">
-  <img src="https://img.shields.io/badge/version-1.1.0-informational" alt="Version">
+  <img src="https://img.shields.io/badge/version-1.3.0-informational" alt="Version">
+  <img src="https://img.shields.io/badge/offline--first-edge%20ready-brightgreen" alt="Offline-First">
+  <img src="https://img.shields.io/badge/code--switching-supported-brightgreen" alt="Code-Switching">
 </p>
 
 ---
@@ -32,14 +34,19 @@ Language infrastructure — tokenization, normalization, dialect handling, polic
 
 Most African NLP efforts deliver datasets, speech corpora, or fine-tuned models. PAT delivers the hardened plumbing layer: lightweight, installable, auditable, and drift-resistant. It sits upstream of any larger model or agent without introducing control risk or epistemic drift.
 
-With 71 dialects live and interactive chat enabled, PAT moves from seed infrastructure to a living, governed node ready for production use.
+With 71 dialects live, interactive chat enabled, and native code-switching detection, PAT moves from seed infrastructure to a living, governed node ready for production use.
+
+PAT is **offline-first and edge-deployable** — zero external dependencies, runs entirely on local hardware via Ollama, and requires no cloud connectivity. This makes it viable across the full spectrum of African infrastructure: from high-bandwidth urban centers to intermittent-connectivity rural deployments.
 
 ---
 
-## v1.1 — What Ships Now
+## v1.3 — What Ships Now
 
 - **71 active dialects** covering major African language families with full character preservation, tone/diacritic support, and morphological signals
+- **Code-switching detection** — identifies multiple languages mixed in a single text (e.g., isiZulu + English, Wolof + French), reflecting real-world African communication patterns
 - **Interactive chat mode** — every message routes through the full pipeline (validate → hash → policy → execute → receipt)
+- **Developer REST API** — health probes, batch detection, session metrics, rate limiting — API-first for enterprise integration
+- **Offline-first architecture** — Ollama local backend, zero cloud dependencies, edge-deployable
 - Expanded phoneme mapping (functional, not stubbed)
 - ELFE-aligned fixed-time stability for dialect confidence scores
 - Hard runtime policy gates that block impersonation, political manipulation, and synthetic deception before processing
@@ -114,12 +121,50 @@ Example structured output:
 |--------------------------------|--------------------------------------------------|---------|
 | `pat run <text>`               | Single-shot pipeline                             | `pat run "Sawubona" --profile zu` |
 | `pat chat`                     | Interactive chat session (71 dialects)           | `pat chat --profile sw` |
+| `pat chat-web`                 | Launch web-based chat UI                         | `pat chat-web --port 3000` |
 | `pat build-dataset <in> <out>` | Build structured dataset from JSON               | ... |
 | `pat receipt <path>`           | Generate SHA-256 receipt                         | `pat receipt output.json` |
 | `pat proof <path>`             | Export full proof bundle for archival            | `pat proof output.json` |
 | `pat version`                  | Show current version                             | `pat version` |
 
-Common options: `--profile <code>`, `--log <path>`, `--schema <path>`
+Common options: `--profile <code>`, `--backend <name>` (for chat: `ollama`, `openai`, `anthropic`, `echo`), `--log <path>`, `--schema <path>`
+
+---
+
+## REST API Reference
+
+When running `pat chat-web`, the following endpoints are available:
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/health` | Readiness probe — backend status, uptime, dialect count |
+| `GET` | `/api/status` | Engine status with session metrics |
+| `GET` | `/api/languages` | List all 71 supported dialects |
+| `GET` | `/api/metrics` | Session usage telemetry |
+| `POST` | `/api/chat` | Send message, get response with auto-detected language |
+| `POST` | `/api/detect` | Detect languages in text (code-switching aware) |
+| `POST` | `/api/batch` | Batch language detection (up to 100 texts) |
+| `POST` | `/api/language` | Set active language (or reset to auto-detect) |
+| `POST` | `/api/reset` | Reset conversation state |
+
+Rate limit: 30 POST requests per minute per IP.
+
+### Code-Switching Detection Example
+
+```bash
+curl -X POST http://localhost:8080/api/detect \
+  -H 'Content-Type: application/json' \
+  -d '{"text": "Sannu! Habari gani? How are you?"}'
+```
+
+Response:
+```json
+{
+  "primary": {"code": "ha", "name": "Hausa", "confidence": 0.7, "matches": ["sannu"]},
+  "secondary": [{"code": "sw", "name": "Kiswahili", "confidence": 0.5, "matches": ["habari"]}],
+  "is_code_switched": true
+}
+```
 
 ---
 
@@ -187,12 +232,13 @@ The policy engine scans all input before execution. See `docs/ETHICAL_USE.md` fo
 
 ```
 PAT/
-├── src/                  # Core modules (cli, core, pipeline, policy, audit, etc.)
+├── src/                  # Core modules (cli, core, pipeline, policy, audit, chat, etc.)
+│   └── pat_chat/         # AI chat engine, backends, web UI, language detection
 ├── configs/              # Language profiles (71 active)
 ├── datasets/             # Sample corpora
 ├── schemas/              # JSON schema for outputs
 ├── docs/                 # Full documentation suite
-├── tests/                # 13+ tests covering pipeline, chat, policy, receipts
+├── tests/                # 47 tests covering pipeline, chat, code-switching, policy, receipts
 ├── .github/workflows/    # CI and release automation
 ├── pyproject.toml
 ├── VERSION
@@ -206,7 +252,7 @@ PAT/
 
 ```bash
 pytest -q
-# Expected: all tests passing (pipeline, policy, profiles, receipts, chat flow)
+# Expected: 47 tests passing (pipeline, policy, profiles, receipts, chat, code-switching, metrics)
 ```
 
 ---
@@ -215,7 +261,7 @@ pytest -q
 
 Priority areas:
 - New or refined dialect profiles
-- Improvements to tokenization for code-switching and agglutinative morphology
+- Improvements to tokenization for agglutinative morphology and tone-aware splitting
 - Chat context window hardening under GATA PRIME
 - Documentation and community guides
 
@@ -229,7 +275,7 @@ See `CONTRIBUTING.md` and use the language profile request template.
 @software{brewer_pat_2026,
   author = {Brewer, Mark Anthony},
   title = {PAT: Pan-African Language Infrastructure for AI},
-  version = {1.1.0},
+  version = {1.3.0},
   doi = {10.5281/zenodo.17046595},
   url = {https://github.com/BrewtaniusAI/PAT}
 }

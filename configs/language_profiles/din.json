@@ -1,0 +1,23 @@
+{
+  "code": "din",
+  "name": "Dinka",
+  "preserve_characters": [
+    "ä",
+    "ë",
+    "ɛ",
+    "ɣ",
+    "ŋ",
+    "ɔ",
+    "ɲ"
+  ],
+  "keywords": [
+    "kudual",
+    "aleu",
+    "juba",
+    "sudan",
+    "jieng",
+    "dinka",
+    "nhialic",
+    "afrika"
+  ]
+}

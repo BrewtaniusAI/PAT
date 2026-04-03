@@ -1,0 +1,22 @@
+{
+  "code": "ln",
+  "name": "Lingala",
+  "preserve_characters": [
+    "á",
+    "é",
+    "ɛ",
+    "í",
+    "ó",
+    "ɔ",
+    "ú"
+  ],
+  "keywords": [
+    "mbote",
+    "melesi",
+    "kinshasa",
+    "brazzaville",
+    "congo",
+    "rumba",
+    "afrika"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "code": "tzm",
+  "name": "Tamazight",
+  "preserve_characters": [
+    "ḍ",
+    "ḥ",
+    "ṛ",
+    "ṣ",
+    "ṭ",
+    "ẓ",
+    "ɛ",
+    "ɣ"
+  ],
+  "keywords": [
+    "azul",
+    "tanemmirt",
+    "amazigh",
+    "tamazgha",
+    "maroc",
+    "atlas",
+    "imazighen",
+    "afrika"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "code": "ha",
+  "name": "Hausa",
+  "preserve_characters": [
+    "ɓ",
+    "ɗ",
+    "ƙ",
+    "ƴ",
+    "ʼ"
+  ],
+  "keywords": [
+    "sannu",
+    "nagode",
+    "ina",
+    "kwana",
+    "lafiya",
+    "gaskiya",
+    "mutum",
+    "ƙasa",
+    "naira",
+    "afrika"
+  ]
+}

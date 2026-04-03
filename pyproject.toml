@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pat"
-version = "0.5.0"
+version = "1.3.0"
 description = "Patent-free Pan-African language infrastructure"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -14,6 +14,9 @@ dependencies = []
 
 [project.scripts]
 pat = "pat_cli:main"
+
+[tool.setuptools.package-data]
+pat_chat = ["templates/*.html"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
