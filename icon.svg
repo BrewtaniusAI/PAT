@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <radialGradient id="bg-pat" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#022c22" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="1"/>
+    </radialGradient>
+  </defs>
+  <rect width="64" height="64" rx="12" fill="#022c22"/>
+  <rect width="64" height="64" rx="12" fill="url(#bg-pat)" opacity="0.8"/>
+<!-- Africa Continent Silhouette / Language Waves -->
+    <path d="M32,6 C28,6 24,10 22,16 C20,20 18,26 20,32 C22,38 20,42 22,48 C24,52 28,54 30,56 C32,54 34,50 36,48 C38,44 42,38 42,32 C42,26 40,20 38,14 C36,10 34,6 32,6Z" fill="#10b981" opacity="0.8"/>
+    <path d="M14,22 Q24,20 32,24 Q40,28 50,26" fill="none" stroke="#34d399" stroke-width="1.5" opacity="0.7"/>
+    <path d="M12,30 Q22,28 32,32 Q42,36 52,34" fill="none" stroke="#6ee7b7" stroke-width="1.5" opacity="0.6"/>
+    <path d="M14,38 Q24,36 32,40 Q40,44 50,42" fill="none" stroke="#a7f3d0" stroke-width="1.5" opacity="0.5"/>
+    <text x="32" y="35" text-anchor="middle" font-size="14" font-weight="bold" fill="white" font-family="Arial">P</text>
+</svg>
